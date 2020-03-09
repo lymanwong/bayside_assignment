@@ -1,0 +1,17 @@
+{
+  "name": "apple_task",
+  "version": "1.0.0",
+  "description": "Node task for Apple application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lyman Wong",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "prompts": "^2.3.1"
+  }
+}
