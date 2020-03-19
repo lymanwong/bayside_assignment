@@ -1,4 +1,4 @@
-var fs = require('fs');
+const fs = require('fs');
 const prompts = require('prompts');
 
 //Prompt user for input
@@ -11,7 +11,7 @@ const questions = [
   {
     type: 'text',
     name: 'fileLocation',
-    message: 'Please provide the exact path to your file to search for duplicate text. If you do not have one, try ./text.txt .'
+    message: 'Please provide the exact path to your file to search for duplicate text. If you do not have one, try examples/text.txt .'
   },
   {
     type: 'text',
@@ -23,9 +23,9 @@ const questions = [
 (async () => {
   const response = await prompts(questions);
 	console.log("You want us to look for: " + response.searchTerms + " in " + response.fileLocation + " and " + response.action);
- 	var responseSearchTerms = response.searchTerms;
- 	var responseFileLocation = response.fileLocation;
- 	var responseAction = response.action;
+ 	const responseSearchTerms = response.searchTerms;
+ 	const responseFileLocation = response.fileLocation;
+ 	const responseAction = response.action;
  	uniqueVals(responseSearchTerms, responseFileLocation, responseAction)
 })();
 
@@ -41,16 +41,16 @@ function uniqueVals(string, fileLocationString, action) {
 			throw 'could not open file: ' + err
 		}
 
-		var rawData = data;
+		const rawData = data;
 
 		//Creates an array of words from the text file provided by the user
-	    var result = [...data.matchAll(/(.+?\.)\s*/g)].map(e => e[1]);
+	    const result = [...data.matchAll(/(.+?\.)\s*/g)].map(e => e[1]);
 
 	    //This will hold an array of sentence arrays seperated by commas [[word1,word2],[word3,word4],etc..]
-	    var collection = [];
+	    const collection = [];
 
 	    //Loop through each item in the arry of words
-	    for(var i = 0; i < result.length; i++) {
+	    for(let i = 0; i < result.length; i++) {
 
 	    	//Creates an array of arrays of the text file in lower case [[word1,word2],[word3,word4],etc..]
 	    	collection.push(result[i].toLowerCase().split(" "));
@@ -63,15 +63,15 @@ function uniqueVals(string, fileLocationString, action) {
 function searchArray(string, result, action, collection, fileLocationString, rawData){
 
 	//Creates an array of the user-defined search terms in lower case
-	var lowSearchString = string.toLowerCase().split(" ");
+	const lowSearchString = string.toLowerCase().split(" ");
 
 	//This will hold the matching search terms from the user
-	var matchingCollection = [];
+	const matchingCollection = [];
 
 	//For each item in the collection array compare the elements with elements from the search terms
-	for (var i = 0; i < collection.length; i++) {
-		for (var j = 0; j < collection[j].length; j++) { //for each array in the collection array
-			for (var k = 0; k < lowSearchString.length; k++) { //for each item in the lowSearchString array
+	for (let i = 0; i < collection.length; i++) {
+		for (let j = 0; j < collection[j].length; j++) { //for each array in the collection array
+			for (let k = 0; k < lowSearchString.length; k++) { //for each item in the lowSearchString array
 
 				//Add array index of matches to the matchingCollection array
 				if (collection[i][j] == lowSearchString[k]) {
@@ -86,22 +86,22 @@ function searchArray(string, result, action, collection, fileLocationString, raw
 // Create a function to execute what the user wants to do - report duplicates or delete duplicates
 function executeCommand(string, result, action, collection, matchingCollection, lowSearchString, fileLocationString, rawData){
 	//Formats the user input to lower case
-	var lowAction = action.toLowerCase();
+	const lowAction = action.toLowerCase();
 
 	//Creates a SET with only unique values from the matchingCollection array
 	const uniqueSet = new Set(matchingCollection);
 
 	//Converts the set from the previous function to an array we can use
-	var backToArray = [...uniqueSet];
+	const backToArray = [...uniqueSet];
 
 	//Create a different varible, so that I don't edit the original data set
-	var editedCollection = collection;
+	const editedCollection = collection;
 
 	//Executes if the user decides to see a report about where the duplicate lines are
 	if (lowAction == "report") {
 
 		//Calls a function to make the array readable so the user will know which lines are duplicates
-		var readableArray = backToArray.map(convertToReadableArray);
+		const readableArray = backToArray.map(convertToReadableArray);
 
 		 //Function adds one to the index so it's readable for the user when referencing a line number on a document
 		function convertToReadableArray(num) {
@@ -129,7 +129,7 @@ function executeCommand(string, result, action, collection, matchingCollection, 
 		backToArray = backToArray.reverse();
 
 		//Loop over every element of the element location (backtToArry) and delete the nested array (sentence) at location editedCollection[i]
-		for (var i = 0; i < backToArray.length; i++) {
+		for (let i = 0; i < backToArray.length; i++) {
 		    editedCollection.splice(backToArray[i],1);
 		}
 		formatFile(string, result, action, collection, matchingCollection, lowSearchString, fileLocationString, editedCollection, rawData);
@@ -144,12 +144,12 @@ function executeCommand(string, result, action, collection, matchingCollection, 
 function formatFile(string, result, action, collection, matchingCollection, lowSearchString, fileLocationString, editedCollection, rawData) {
 
 	//Loop over each array (sentence) and capitalize the first letter of each sentence
-	for (var i = 0; i < editedCollection.length; i++) {
+	for (let i = 0; i < editedCollection.length; i++) {
 		editedCollection[i][0] = editedCollection[i][0].charAt(0).toUpperCase() + editedCollection[i][0].slice((1));
 	}
 
 	//Combine the nested arrays (sentences) into a paragraph
-		var formattedCollection = editedCollection.flat().join(" ");
+		const formattedCollection = editedCollection.flat().join(" ");
 		createFile(string, result, action, collection, matchingCollection, lowSearchString, fileLocationString, editedCollection, rawData, formattedCollection);
 }
 

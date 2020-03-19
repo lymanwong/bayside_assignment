@@ -2,12 +2,9 @@ Saturday, March 7, 2020
 
 Hello hiring manager,
 
-My name is Lyman Wong and I'm applying for the Front-End Developer role at Apple.
-I had a great time working on this project and appreciate the opportunity.
+My name is Lyman Wong, and I'm applying for the Front-End Developer role at Apple. I had a great time working on this project and appreciate the opportunity.
 
-This feature is based on the Linux 'uniq' text processing feature. Based on the user's search term,
-the feature is suppose to either report or filter out repeated lines in a file. Instead of
-overriting the original file, I've decided to create a duplicate file with the edits.
+This feature is based on the Linux 'uniq' text processing feature. Based on the user's search term, the feature is designed to either report or filter out repeated lines in a file. Instead of overwriting the original file, I've decided to create a duplicate file with the edits.
 
 If you have any feedback, I would love to hear it.
 
@@ -23,16 +20,14 @@ lymanwong.github.io
 Instructions:
 1. After installation and unzipping the file, open the Terminal application.
 2. CD into the project folder.
-3. Type in "npm install" to install the dependencies.
+3. Type in "npm ci" to install the dependencies.
 4. Type in "node index" to trigger the program
 5. Enter the search parameters
-	  a. Enter the search terms in the order you like for the tool to search for it.
-	  b. If you don't have a text file to check, you can use either "./text.txt" or "./text2.txt". I used a
-	  	 random sentence generator for the text.
-	  c. Type Report or Delete
-	  		- Report will tell you where the duplicate phrase(s) lie in your text.
-	  		- Delete will create another file ("edited.txt) in the project folder with all of the lines in the text
-	          keeping the first set of lines, but remove subsequent duplicate lines in a paragraph format.
+      a. Enter the search terms in the order you like for the tool to search for it.
+      b. If you don't have a text file to check, you can use either "example/text.txt" or "example/text2.txt". I used a random sentence generator for the text.
+      c. Type Report or Delete
+         - Report will tell you where the duplicate phrase(s) lie in your text.
+         - Delete will create another file ("edited.txt) in the project folder with all of the lines in the text keeping the first set of lines, but remove subsequent duplicate lines in a paragraph format.
 
 ---
 
